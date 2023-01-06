@@ -17,16 +17,14 @@ ENV GOARCH=amd64
 
 COPY . .
 
-RUN go build -o /mms-app
+RUN go build -tags musl -o mms-app -ldflags="-s -w -extldflags -static" ./cmd
 
-FROM alpine:latest
+FROM golang:1.19-alpine
+
 WORKDIR /
-COPY --from=build /mms-app /mms-app
+
+COPY --from=build /app/mms-app /
 
 EXPOSE 8080
 
-# RUN chmod +x /mms-app
-
-RUN chmod 655 /mms-app
-
-CMD ["/mms-app"]
+ENTRYPOINT [ "./mms-app" ]
