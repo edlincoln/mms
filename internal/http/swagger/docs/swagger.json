@@ -1,0 +1,94 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/v1/extractor/daily": {
+            "post": {
+                "description": "This resource performs find mms by pair and time stamp\n**Errors http codes response:**\nHTTP | Description | Code | Note\n-----|-----|-----|-----\n500 | Internal server error | 500 | N/A",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Extractor"
+                ],
+                "summary": "find mms by pair and time stamp",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/v1/{pair}/mms": {
+            "get": {
+                "description": "This resource performs find mms by pair and time stamp\n**Errors http codes response:**\nHTTP | Description | Code | Note\n-----|-----|-----|-----\n500 | Internal server error | 500 | N/A",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "MmsPair"
+                ],
+                "summary": "find mms by pair and time stamp",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "pair identifier",
+                        "name": "pair",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "timestamp from",
+                        "name": "from",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "timestamp to",
+                        "name": "to",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "range",
+                        "name": "range",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.MmsPair"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "response.MmsPair": {
+            "type": "object",
+            "properties": {
+                "mms": {
+                    "type": "number"
+                },
+                "timestamp": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,70 @@
+definitions:
+  response.MmsPair:
+    properties:
+      mms:
+        type: number
+      timestamp:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/{pair}/mms:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        This resource performs find mms by pair and time stamp
+        **Errors http codes response:**
+        HTTP | Description | Code | Note
+        -----|-----|-----|-----
+        500 | Internal server error | 500 | N/A
+      parameters:
+      - description: pair identifier
+        in: path
+        name: pair
+        required: true
+        type: string
+      - description: timestamp from
+        in: query
+        name: from
+        type: integer
+      - description: timestamp to
+        in: query
+        name: to
+        type: integer
+      - description: range
+        in: query
+        name: range
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.MmsPair'
+        "400":
+          description: Bad request
+        "500":
+          description: Internal Server Error
+      summary: find mms by pair and time stamp
+      tags:
+      - MmsPair
+  /v1/extractor/daily:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        This resource performs find mms by pair and time stamp
+        **Errors http codes response:**
+        HTTP | Description | Code | Note
+        -----|-----|-----|-----
+        500 | Internal server error | 500 | N/A
+      responses:
+        "201":
+          description: Created
+        "500":
+          description: Internal Server Error
+      summary: find mms by pair and time stamp
+      tags:
+      - Extractor
+swagger: "2.0"

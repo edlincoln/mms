@@ -1,0 +1,42 @@
+app:
+  name: mms test
+  description: API for the mms test
+  version: 1.0.0
+
+server:
+  port: 8080
+
+swagger:
+  port: 8080
+  ip: localhost
+  basePath: /
+  custom:
+    enabled: false
+    basePath: /swagger.json
+
+database:
+  connection:
+    host: localhost
+    port: 5432
+    dialect: postgres
+    schema: public
+    user: postgres
+    password: postgres
+    databaseName: MMS_TEST
+    sslMode: disable
+
+extractor:
+  enabled: true
+  mocked: true
+  url: https://mobile.mercadobitcoin.com.br/v4/%s/candle
+  range: 365
+  daily:
+    maxPeriod: 200
+    frequency: 1
+    hour: "21:00"
+    retry: 3
+    retryTime: 30s
+  pairs:
+    - "BRLETH"
+    - "BRLBTC"
+  
