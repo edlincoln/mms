@@ -155,14 +155,12 @@ func (s *ExtractorManagerServiceImp) extractData(ctx context.Context, url, pair 
 func (s *ExtractorManagerServiceImp) mockeExtractorResponse(filePath string) []dto.Candle {
 	dirname, err := os.Getwd()
 
-	fmt.Println("!!!!" + dirname + "!!!!")
-
 	if err != nil {
 		panic(err)
 	}
 
 	// body, err := os.ReadFile(path.Join(dirname, "../") + filePath)
-	body, err := os.ReadFile(path.Join(dirname,  filePath))
+	body, err := os.ReadFile(path.Join(dirname, filePath))
 	if err != nil {
 		log.Fatal(err)
 	}

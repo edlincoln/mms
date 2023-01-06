@@ -4,7 +4,7 @@ Serviço de variações de médias móveis simples, de 20, 50 e 200 dias,
 das moedas Bitcoin e Etherium.
 
 ## Descrição:
-O serviço de media faz uso de uma api para carregar a tabela de médias, ao inicializar o serviço pela primeira vez um job ira fazer a carga inicial (caso esteja habilitado). Após a primeira execução é necessário que seja atualizado diariamente está tabela, isso é feito por um outro job que está schedulado para executar diariamente as 21:00 horas. Todas as configurações dos jobs pode ser consultada e/ou alterada no arquivo `resources/application.yml`.
+O serviço de media faz uso de uma api para carregar a tabela de médias, ao inicializar o serviço pela primeira vez um job ira fazer a carga inicial (caso esteja habilitado, e a tabela esteja sem dados, após a primeira carga ele pula esse step, caso queira fazer uma nova carga é necessário "limpar" a tabela). Após a primeira execução é necessário que seja atualizado diariamente está tabela, isso é feito por um outro job que está schedulado para executar diariamente as 21:00 horas. Todas as configurações dos jobs pode ser consultada e/ou alterada no arquivo `resources/application.yml`.
 
 ```
 extractor:
