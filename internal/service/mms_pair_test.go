@@ -5,11 +5,13 @@ import (
 	"errors"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/edlincoln/mms/internal/dto"
 	"github.com/edlincoln/mms/internal/http/request"
 	"github.com/edlincoln/mms/internal/model"
 	"github.com/edlincoln/mms/internal/repository"
+	"github.com/edlincoln/mms/internal/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -19,6 +21,19 @@ const (
 	mms20  float64 = 5
 	mms50  float64 = 5.5
 	mms200 float64 = 6
+	brleth         = "BRLETH"
+	brlbtc         = "BRLBTC"
+	url    string  = "http://teste"
+)
+
+var (
+	pairs        = make([]string, 0)
+	from   int64 = time.Now().AddDate(0, 0, -7).Unix()
+	to     int64 = time.Now().Unix()
+	fromDt time.Time
+	toDt   time.Time
+	header map[string]string
+	parm   = map[string]string{"from": strconv.Itoa(int(from)), "precision": "1d", "to": strconv.Itoa(int(to))}
 )
 
 func TestFindByPairAndTimestampRange(t *testing.T) {
@@ -134,4 +149,11 @@ func GetCandles() []dto.Candle {
 	list = append(list, dto.Candle{Timestamp: from, Close: mms50})
 	list = append(list, dto.Candle{Timestamp: from, Close: mms200})
 	return list
+}
+
+func initValues() {
+	pairs = append(pairs, brleth)
+	pairs = append(pairs, brlbtc)
+	fromDt, _ = utils.UnixStrToDate(utils.GetStringFromInt64(from))
+	toDt, _ = utils.UnixStrToDate(utils.GetStringFromInt64(to))
 }
