@@ -1,25 +1,5 @@
 version: '3'
 services:
-  app:
-    image: 'mms-app-img:latest'
-    build: ./
-    container_name: app
-    depends_on:
-      - postgres
-    environment:
-      - DATABASE_CONNECTION_HOST=localhost
-      - DATABASE_CONNECTION_PORT=5432
-      - DATABASE_CONNECTION_DIALECT=postgres
-      - DATABASE_CONNECTION_SCHEMA=public
-      - DATABASE_CONNECTION_USER=postgres
-      - DATABASE_CONNECTION_PASSWORD=postgres
-      - DATABASE_CONNECTION_DATABASENAME=MMS_TEST
-      - DATABASE_CONNECTION_SSLMODE=DISABLE
-    ports:
-      - 8080:8080
-    command: ./mms-app  
-  networks: backend
-      
   postgres:
     image: postgres:latest
     restart: always
@@ -33,10 +13,35 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
-    networks: backend
+    networks: 
+      backend:
 
-network:
+  # app:
+  #   image: 'mms-app-img:latest'
+  #   build: ./
+  #   container_name: app
+  #   depends_on:
+  #     postgres:
+  #       condition: service_started
+  #   environment:
+  #     - DATABASE_CONNECTION_HOST=postgres
+  #     - DATABASE_CONNECTION_PORT=5432
+  #     - DATABASE_CONNECTION_DIALECT=postgres
+  #     - DATABASE_CONNECTION_SCHEMA=public
+  #     - DATABASE_CONNECTION_USER=postgres
+  #     - DATABASE_CONNECTION_PASSWORD=postgres
+  #     - DATABASE_CONNECTION_DATABASENAME=MMS_TEST
+  #     - DATABASE_CONNECTION_SSLMODE=DISABLE
+  #   ports:
+  #     - 8080:8080
+  #   command: ./mms-app  
+  #   networks:
+  #     backend:
+
+networks:
   backend:
+    name: existing_docker_network
+    # external: false
 
 volumes:
   postgres-data:
